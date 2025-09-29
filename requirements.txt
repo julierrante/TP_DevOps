@@ -1,0 +1,6 @@
+# dependencias de Pythonx
+
+fastapi
+uvicorn
+pytest
+httpx
