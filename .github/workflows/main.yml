@@ -1,5 +1,8 @@
 name: TP_DevOps
 
+env: 
+  PYTHON_VERSION: 3.13
+
 on:
   push:
     branches:
@@ -12,10 +15,18 @@ jobs:
   build:
     runs-on: ubuntu-22.04 
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Usando rama ${{ github.ref_name }}
+        uses: actions/checkout@v4
+      
+      - name: Instalando Python version ${{ env.PYTHON_VERSION }}
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.13"
+          python-version: ${{ env.PYTHON_VERSION }}
           cache: "pip"
-      - run: pip install -r requirements.txt
-      - run: pytest
+
+      - name: Instalando dependencias
+        run: pip install -r requirements.txt
+      
+      - name: Ejecutando tests unitarios
+        run: pytest
+      
